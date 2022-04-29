@@ -1,10 +1,16 @@
 import express, { Express } from 'express';
+import cors from 'cors';
 import bodyParser from 'body-parser';
 import characterRouter from './routes/characters';
 import http from 'http';
 import { CharacterMap } from './models/character.model';
 import database from './database';
 
+const corsOptions = {
+  origin: '*',
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 class Server {
   private app: Express = null;
 
@@ -17,6 +23,7 @@ class Server {
   private config() {
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(bodyParser.json({ limit: '1mb' })); // 100kb default
+    this.app.use(cors(corsOptions));
   }
 
   private routerConfig() {
