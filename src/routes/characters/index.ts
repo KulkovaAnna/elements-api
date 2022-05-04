@@ -1,9 +1,15 @@
 import { Router } from 'express';
+import { CreateRouter } from '../../types';
 import getCharacterById from './getCharacterById';
 import getCharacters from './getCharacters';
-const router = Router();
 
-router.get('/', getCharacters);
-router.get('/:id', getCharacterById);
+const createRouter: CreateRouter = ({ storage }) => {
+  const router = Router();
 
-export default router;
+  router.get('/', getCharacters({ storage }));
+  router.get('/:id', getCharacterById({ storage }));
+
+  return router;
+};
+
+export default createRouter;
