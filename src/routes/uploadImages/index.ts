@@ -9,7 +9,7 @@ const createRouter: CreateRouter = ({ storage }) => {
 
   router.post(
     '/hero/:id',
-    heroUpload.single('hero.png'),
+    heroUpload.single('hero'),
     uploadHeroImage({ storage })
   );
 
