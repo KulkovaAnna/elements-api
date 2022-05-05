@@ -1,4 +1,4 @@
-import { Model, Sequelize, DataTypes } from 'sequelize';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 
 export default class Character extends Model {
   public id!: number;

@@ -1,17 +1,4 @@
-import { NextFunction, Request, Response, Router } from 'express';
-import { StorageEngine } from 'multer';
-
-type RouteHandlerParams = {
-  storage: StorageEngine;
-};
-
-type ResolverHandlerParams = {
-  storage: StorageEngine;
-};
-
-export type RouteHandler = (
-  data: RouteHandlerParams
-) => (req: Request, res: Response, next: NextFunction) => Promise<void>;
+type ResolverHandlerParams = {};
 
 export type ResolverHandler = (
   data: ResolverHandlerParams
@@ -21,8 +8,6 @@ export type ResolverHandler = (
   context: any,
   info: any
 ) => Promise<any>;
-
-export type CreateRouter = (data: RouteHandlerParams) => Router;
 
 export type CreateResolver = (data: ResolverHandlerParams) => {
   Query?: {

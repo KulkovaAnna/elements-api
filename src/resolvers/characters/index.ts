@@ -2,11 +2,11 @@ import { CreateResolver } from '../../types';
 import getCharacterById from './getCharacterById';
 import getCharacters from './getCharacters';
 
-const charactersResolver: CreateResolver = function ({ storage }) {
+const charactersResolver: CreateResolver = function () {
   return {
     Query: {
-      getCharacters: getCharacters({ storage }),
-      getCharacterById: getCharacterById({ storage }),
+      getCharacters: getCharacters({}),
+      getCharacterById: getCharacterById({}),
     },
   };
 };

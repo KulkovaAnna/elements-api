@@ -1,36 +1,33 @@
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import express, { Express } from 'express';
+import { graphqlUploadExpress } from 'graphql-upload';
 import http from 'http';
 import database from './database';
 import { CharacterMap } from './models/character.model';
-import schema from './schemas/typeDefs';
 import charactersResolver from './resolvers/characters';
-import uploadImages from './routes/uploadImages';
-
-import StorageService from './services/storageService';
+import uploadImages from './resolvers/uploadImages';
+import schema from './schemas/typeDefs';
 
 const corsOptions = {
   origin: '*',
   credentials: true,
   optionSuccessStatus: 200,
 };
-
-const { storage } = new StorageService();
 class Server {
   private app: Express = null;
 
   constructor() {
     this.app = express();
     this.app.use(express.static('storage'));
-    this.app.use('/upload', uploadImages({ storage }));
+    this.app.use(graphqlUploadExpress());
   }
 
   public start = (port: number) => {
     const httpServer = http.createServer(this.app);
     const server = new ApolloServer({
       typeDefs: schema,
-      resolvers: [charactersResolver({ storage })],
+      resolvers: [charactersResolver({}), uploadImages({})],
       plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
     });
     server

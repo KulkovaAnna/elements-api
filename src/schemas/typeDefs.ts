@@ -1,6 +1,7 @@
 import { gql } from 'apollo-server-core';
 
 export default gql`
+  scalar Upload
   enum Race {
     elf
     human
@@ -23,5 +24,9 @@ export default gql`
   type Query {
     getCharacters: [Character]
     getCharacterById(id: Int!): Character
+  }
+
+  type Mutation {
+    uploadHeroImage(id: Int!, file: Upload!): Character
   }
 `;
