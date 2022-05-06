@@ -7,16 +7,16 @@ type Args = {
   input: {
     title?: string;
     content?: string;
-    order: number;
+    order?: number;
   };
 };
 
 const updateChapter: ResolverHandler = () => {
-  return async function (_, { id, input }: Args, { user }) {
+  return async function (_p, { id, input }: Args, { user }) {
     if (!user || !user.isAdmin) {
       throw new UnauthorizedError();
     }
-    const result = await Chapter.update(
+    const [_n, chapter] = await Chapter.update(
       {
         ...input,
       },
@@ -24,9 +24,10 @@ const updateChapter: ResolverHandler = () => {
         where: {
           id,
         },
+        returning: true,
       }
     );
-    return result;
+    return chapter[0].get();
   };
 };
 

@@ -14,6 +14,12 @@ export default gql`
     content: String
   }
 
+  input UpdateChapterInput {
+    title: String
+    order: Int
+    content: String
+  }
+
   type Query {
     getChapters: [Chapter]
     getNthChapter(order: Int!): Chapter
@@ -21,6 +27,6 @@ export default gql`
 
   type Mutation {
     addChapter(input: AddChapterInput): Chapter
-    updateChapter(id: Int!, input: AddChapterInput): Chapter
+    updateChapter(id: Int!, input: UpdateChapterInput): Chapter
   }
 `;
