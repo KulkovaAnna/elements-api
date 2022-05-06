@@ -1,6 +1,5 @@
-import { db_host, db_port, db_name, db_user, db_password } from '../config';
-
 import { Sequelize } from 'sequelize';
+import { db_host, db_name, db_password, db_port, db_user } from '../config';
 
 export default new Sequelize({
   dialect: 'postgres',
