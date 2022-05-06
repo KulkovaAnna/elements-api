@@ -16,7 +16,7 @@ export default gql`
 
   type Query {
     getChapters: [Chapter]
-    getChapterById(id: Int!): Chapter
+    getNthChapter(order: Int!): Chapter
   }
 
   type Mutation {
