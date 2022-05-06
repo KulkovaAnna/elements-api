@@ -3,7 +3,7 @@ import uploadHeroImage from './uploadHeroImage';
 const charactersResolver: CreateResolver = function () {
   return {
     Mutation: {
-      uploadHeroImage: uploadHeroImage({}),
+      uploadHeroImage: uploadHeroImage(),
     },
   };
 };

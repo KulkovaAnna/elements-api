@@ -48,5 +48,5 @@ export const CharacterMap = (sequelize: Sequelize) => {
       timestamps: false,
     }
   );
-  Character.sync();
+  Character.sync({ logging: false });
 };

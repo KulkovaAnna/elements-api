@@ -10,7 +10,10 @@ type Args = {
 };
 
 const uploadHeroImage: ResolverHandler = () => {
-  return async function (_parent, { id, file: fileUpload }: Args) {
+  return async function (_parent, { id, file: fileUpload }: Args, { user }) {
+    if (!user || !user?.isAdmin) {
+      throw new Error('Пользовател не является администратором');
+    }
     const relativePath = `/images/characters/${id}/hero/image.png`;
     const dir = `${storage_path}/images/characters/${id}/hero/image.png`;
     const { file } = fileUpload;

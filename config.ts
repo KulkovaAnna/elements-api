@@ -14,3 +14,4 @@ export const db_password = String(process.env.DB_PASSWORD);
 export const storage_path = isDevEnv
   ? 'storage'
   : String(process.env.STORAGE_PATH);
+export const jwt_secret = String(process.env.JWT_SECRET);

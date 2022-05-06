@@ -1,19 +1,24 @@
-import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { ApolloServer } from 'apollo-server-express';
 import express, { Express } from 'express';
 import { graphqlUploadExpress } from 'graphql-upload';
-import http from 'http';
 import database from './database';
-import { CharacterMap } from './models/character.model';
-import charactersResolver from './resolvers/characters';
-import uploadImages from './resolvers/uploadImages';
-import schema from './schemas/typeDefs';
+import { CharacterMap, UserMap } from './models';
+import {
+  charactersResolver,
+  uploadImagesResolver,
+  usersResolver,
+} from './resolvers';
+import { characterSchema, userSchema } from './schemas';
+import getPayload from './utils/getPayload';
 
 const corsOptions = {
   origin: '*',
   credentials: true,
   optionSuccessStatus: 200,
 };
+
+const resolversData = {};
+
 class Server {
   private app: Express = null;
 
@@ -23,30 +28,34 @@ class Server {
     this.app.use(graphqlUploadExpress());
   }
 
-  public start = (port: number) => {
-    const httpServer = http.createServer(this.app);
+  public start = async (port: number) => {
     const server = new ApolloServer({
-      typeDefs: schema,
-      resolvers: [charactersResolver({}), uploadImages({})],
-      plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+      typeDefs: [characterSchema, userSchema],
+      resolvers: [
+        charactersResolver(resolversData),
+        uploadImagesResolver(resolversData),
+        usersResolver(resolversData),
+      ],
+      context: ({ req }) => {
+        const token = req.headers.authorization || '';
+        const { payload: user } = getPayload(token);
+
+        return { user };
+      },
     });
-    server
-      .start()
-      .then(() => {
-        server.applyMiddleware({
-          app: this.app,
-          cors: corsOptions,
-          bodyParserConfig: { limit: '1mb' },
-        });
-      })
-      .then(() => {
-        httpServer.listen({ port }, () => {
-          console.log(
-            `🚀 Server ready at http://localhost:5000${server.graphqlPath}`
-          );
-          CharacterMap(database);
-        });
-      });
+    await server.start();
+    server.applyMiddleware({
+      app: this.app,
+      cors: corsOptions,
+      bodyParserConfig: { limit: '1mb' },
+    });
+    this.app.listen({ port }, () => {
+      console.log(
+        `🚀 Server ready at http://localhost:5000${server.graphqlPath}`
+      );
+      CharacterMap(database);
+      UserMap(database);
+    });
   };
 }
 

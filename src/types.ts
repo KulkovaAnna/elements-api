@@ -1,7 +1,7 @@
 type ResolverHandlerParams = {};
 
 export type ResolverHandler = (
-  data: ResolverHandlerParams
+  data?: ResolverHandlerParams
 ) => (
   parent: ParentNode,
   args: { [key: string]: any },
@@ -9,7 +9,7 @@ export type ResolverHandler = (
   info: any
 ) => Promise<any>;
 
-export type CreateResolver = (data: ResolverHandlerParams) => {
+export type CreateResolver = (data?: ResolverHandlerParams) => {
   Query?: {
     [resolver: string]: (...args: any) => Promise<ResolverHandler>;
   };
