@@ -2,13 +2,9 @@ import { ApolloServer } from 'apollo-server-express';
 import express, { Express } from 'express';
 import { graphqlUploadExpress } from 'graphql-upload';
 import database from './database';
-import { CharacterMap, UserMap } from './models';
-import {
-  charactersResolver,
-  uploadImagesResolver,
-  usersResolver,
-} from './resolvers';
-import { characterSchema, userSchema } from './schemas';
+import initModels from './models';
+import getResolvers from './resolvers';
+import schema from './schemas';
 import getPayload from './utils/getPayload';
 
 const corsOptions = {
@@ -18,7 +14,6 @@ const corsOptions = {
 };
 
 const resolversData = {};
-
 class Server {
   private app: Express = null;
 
@@ -30,16 +25,11 @@ class Server {
 
   public start = async (port: number) => {
     const server = new ApolloServer({
-      typeDefs: [characterSchema, userSchema],
-      resolvers: [
-        charactersResolver(resolversData),
-        uploadImagesResolver(resolversData),
-        usersResolver(resolversData),
-      ],
+      typeDefs: schema,
+      resolvers: getResolvers(resolversData),
       context: ({ req }) => {
         const token = req.headers.authorization || '';
         const { payload: user } = getPayload(token);
-
         return { user };
       },
     });
@@ -53,8 +43,7 @@ class Server {
       console.log(
         `🚀 Server ready at http://localhost:5000${server.graphqlPath}`
       );
-      CharacterMap(database);
-      UserMap(database);
+      initModels(database);
     });
   };
 }

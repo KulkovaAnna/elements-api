@@ -1,11 +1,17 @@
-type ResolverHandlerParams = {};
+import { User } from './models';
+
+export type ResolverHandlerParams = {};
+
+export type ResolverContext = {
+  user: Omit<User, 'password'>;
+};
 
 export type ResolverHandler = (
   data?: ResolverHandlerParams
 ) => (
   parent: ParentNode,
   args: { [key: string]: any },
-  context: any,
+  context: ResolverContext,
   info: any
 ) => Promise<any>;
 
