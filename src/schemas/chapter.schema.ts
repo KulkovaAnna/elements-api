@@ -20,8 +20,19 @@ export default gql`
     content: String
   }
 
+  input GetChaptersInput {
+    from: Int
+    limit: Int
+  }
+
+  type Chapters {
+    chapters: [Chapter]
+    total: Int!
+    nextOrder: Int
+  }
+
   type Query {
-    getChapters: [Chapter]
+    getChapters(input: GetChaptersInput): Chapters
     getNthChapter(order: Int!): Chapter
   }
 
