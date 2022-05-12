@@ -22,7 +22,7 @@ const getChapters: ResolverHandler = function () {
       offset: from,
       limit,
     });
-    if (!Number.isInteger(limit) || limit > count) {
+    if (limit === undefined || limit >= count) {
       result.nextOrder = null;
     } else {
       result.nextOrder = limit + 1;
