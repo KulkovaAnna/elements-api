@@ -1,19 +1,15 @@
 import { ApolloServer } from 'apollo-server-express';
 import express, { Express } from 'express';
 import { graphqlUploadExpress } from 'graphql-upload';
-import database from './database';
-import initModels from './models';
 import getResolvers from './resolvers';
 import schema from './schemas';
 import getPayload from './utils/getPayload';
-
+import database from './database';
 const corsOptions = {
   origin: '*',
-  credentials: true,
-  optionSuccessStatus: 200,
 };
 
-const resolversData = {};
+const resolversData = { database };
 class Server {
   private app: Express = null;
 
@@ -43,7 +39,6 @@ class Server {
       console.log(
         `🚀 Server ready at http://localhost:5000${server.graphqlPath}`
       );
-      initModels(database);
     });
   };
 }

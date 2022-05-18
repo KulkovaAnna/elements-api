@@ -1,6 +1,6 @@
 import { UnauthorizedError } from '../../errors';
-import { Chapter } from '../../models';
-import { ResolverHandler } from '../../types';
+import { ResolverHandler } from '../../types/server';
+import { Chapter } from '../../types/models';
 
 type Args = {
   input: {
@@ -10,15 +10,13 @@ type Args = {
   };
 };
 
-const addChapter: ResolverHandler = () => {
+const addChapter: ResolverHandler = ({ database }) => {
   return async function (_, { input }: Args, { user }) {
     if (!user || !user.isAdmin) {
       throw new UnauthorizedError();
     }
-    const result = await Chapter.create({
-      ...input,
-    });
-    return result;
+    const result: Chapter[] = await database('chapters').insert(input, '*');
+    return result[0];
   };
 };
 

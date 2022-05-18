@@ -1,4 +1,4 @@
-import { CreateResolver } from '../../types';
+import { CreateResolver } from '../../types/server';
 import signIn from './signIn';
 import signUp from './signUp';
 

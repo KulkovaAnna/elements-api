@@ -1,9 +1,9 @@
-import { CreateResolver } from '../../types';
+import { CreateResolver } from '../../types/server';
 import uploadHeroImage from './uploadHeroImage';
-const charactersResolver: CreateResolver = function () {
+const charactersResolver: CreateResolver = function (data) {
   return {
     Mutation: {
-      uploadHeroImage: uploadHeroImage(),
+      uploadHeroImage: uploadHeroImage(data),
     },
   };
 };

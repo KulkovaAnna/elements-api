@@ -10,15 +10,23 @@ export default gql`
     verwolf
   }
 
+  enum Sex {
+    male
+    female
+    other
+  }
+
   type Character {
     id: Int!
     name: String
     description: String
     story: String
     hero_image: String
-    images: [String]
     full_name: String
     race: Race
+    sex: Sex
+    birth_date: Int
+    death_date: Int
   }
 
   type Query {

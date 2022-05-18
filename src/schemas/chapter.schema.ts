@@ -25,15 +25,21 @@ export default gql`
     limit: Int
   }
 
-  type Chapters {
+  type GetChaptersResult {
     chapters: [Chapter]
     total: Int!
     nextOrder: Int
   }
 
+  type GetNthChapterResult {
+    chapter: Chapter
+    next: Int
+    prev: Int
+    total: Int
+  }
   type Query {
-    getChapters(input: GetChaptersInput): Chapters
-    getNthChapter(order: Int!): Chapter
+    getNthChapter(order: Int!): GetNthChapterResult
+    getChapters(input: GetChaptersInput): GetChaptersResult
   }
 
   type Mutation {

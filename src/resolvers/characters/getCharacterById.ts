@@ -1,13 +1,15 @@
-import Character from '../../models/character.model';
-import { ResolverHandler } from '../../types';
+import { Character } from '../../types/models';
+import { ResolverHandler } from '../../types/server';
 
 type Args = {
   id: number;
 };
 
-const getCharacterById: ResolverHandler = () => {
+const getCharacterById: ResolverHandler = ({ database }) => {
   return async function (_, { id }: Args) {
-    const result = await Character.findOne({ where: { id } });
+    const [result]: Character[] = await database('characters')
+      .select()
+      .where({ id });
     return result;
   };
 };

@@ -1,4 +1,4 @@
-import { CreateResolver } from '../../types';
+import { CreateResolver } from '../../types/server';
 import addChapter from './addChapter';
 import getNthChapter from './getNthChapter';
 import getChapters from './getChapters';

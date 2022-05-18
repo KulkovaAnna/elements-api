@@ -1,4 +1,4 @@
-import { CreateResolver } from '../../types';
+import { CreateResolver } from '../../types/server';
 import getCharacterById from './getCharacterById';
 import getCharacters from './getCharacters';
 

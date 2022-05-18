@@ -1,5 +1,4 @@
-import { Chapter } from '../../models';
-import { ResolverHandler } from '../../types';
+import { ResolverHandler } from '../../types/server';
 
 type Args = {
   input: {
@@ -8,24 +7,25 @@ type Args = {
   };
 };
 
-const getChapters: ResolverHandler = function () {
+const getChapters: ResolverHandler = function ({ database }) {
   return async function (_parent, { input }: Args) {
     const { from = 0, limit } = input ?? {};
-    const count = await Chapter.count();
+    const [{ count }] = await database('chapters').count('id');
     const result = {
       total: count,
       chapters: [],
       nextOrder: 1,
     };
-    result.chapters = await Chapter.findAll({
-      order: ['order'],
-      offset: from,
-      limit,
-    });
+    result.chapters = await database('chapters')
+      .select('*')
+      .offset(from)
+      .limit(limit)
+      .orderBy('order');
+
     if (limit === undefined || limit >= count) {
       result.nextOrder = null;
     } else {
-      result.nextOrder = limit + 1;
+      result.nextOrder = result.chapters[result.chapters.length - 1].order + 1;
     }
     return result;
   };

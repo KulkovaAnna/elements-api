@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { jwt_secret } from '../../../config';
-import { User } from '../../models';
-import { ResolverHandler } from '../../types';
+import { User } from '../../types/models';
+import { ResolverHandler } from '../../types/server';
 
 type Args = {
   email: string;
@@ -11,12 +11,9 @@ type Args = {
 
 const errorMessage = 'Неправильный email или пароль';
 
-const signIn: ResolverHandler = () => {
+const signIn: ResolverHandler = ({ database }) => {
   return async function (_, { email, password }: Args) {
-    const dbUser = await User.findOne({
-      where: { email },
-    });
-
+    const [dbUser]: User[] = await database('users').select().where({ email });
     if (!dbUser) {
       throw new Error(errorMessage);
     }

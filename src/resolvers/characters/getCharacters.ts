@@ -1,8 +1,8 @@
-import Character from '../../models/character.model';
-import { ResolverHandler } from '../../types';
-const getCharacters: ResolverHandler = function () {
+import { Character } from '../../types/models';
+import { ResolverHandler } from '../../types/server';
+const getCharacters: ResolverHandler = function ({ database }) {
   return async function () {
-    const result = await Character.findAll();
+    const result: Character[] = await database('characters').select();
     return result;
   };
 };

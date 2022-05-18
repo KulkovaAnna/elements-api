@@ -1,4 +1,4 @@
-import { ResolverHandler, ResolverHandlerParams } from '../types';
+import { ResolverHandlerParams } from '../types/server';
 import charactersResolver from './characters';
 import uploadImagesResolver from './uploadImages';
 import usersResolver from './users';

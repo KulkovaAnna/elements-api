@@ -1,6 +1,9 @@
+import { Knex } from 'knex';
 import { User } from './models';
 
-export type ResolverHandlerParams = {};
+export type ResolverHandlerParams = {
+  database: Knex;
+};
 
 export type ResolverContext = {
   user: Omit<User, 'password'>;
