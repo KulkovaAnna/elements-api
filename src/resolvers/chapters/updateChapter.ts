@@ -12,7 +12,7 @@ type Args = {
 };
 
 const updateChapter: ResolverHandler = ({ database }) => {
-  return async function (_p, { id, input }: Args, { user }) {
+  return async (_p, { id, input }: Args, { user }) => {
     if (!user || !user.isAdmin) {
       throw new UnauthorizedError();
     }

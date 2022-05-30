@@ -6,7 +6,7 @@ type Args = {
 };
 
 const getCharacterById: ResolverHandler = ({ database }) => {
-  return async function (_, { id }: Args) {
+  return async (_, { id }: Args) => {
     const [result] = await database('characters')
       .select<Character[]>()
       .where({ id });

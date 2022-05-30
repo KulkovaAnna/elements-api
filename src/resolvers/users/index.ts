@@ -2,7 +2,7 @@ import { CreateResolver } from '../../types/server';
 import signIn from './signIn';
 import signUp from './signUp';
 
-const charactersResolver: CreateResolver = function (data) {
+const charactersResolver: CreateResolver = (data) => {
   return {
     Query: {
       signIn: signIn(data),

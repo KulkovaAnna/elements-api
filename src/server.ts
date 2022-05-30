@@ -36,7 +36,7 @@ class Server {
       bodyParserConfig: { limit: '1mb' },
     });
     this.app.listen({ port }, () => {
-      console.log(
+      console.debug(
         `🚀 Server ready at http://localhost:5000${server.graphqlPath}`
       );
     });

@@ -11,7 +11,7 @@ type Args = {
 };
 
 const addChapter: ResolverHandler = ({ database }) => {
-  return async function (_, { input }: Args, { user }) {
+  return async (_, { input }: Args, { user }) => {
     if (!user || !user.isAdmin) {
       throw new UnauthorizedError();
     }

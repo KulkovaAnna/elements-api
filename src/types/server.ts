@@ -9,20 +9,19 @@ export type ResolverContext = {
   user: Omit<User, 'password'>;
 };
 
-export type ResolverHandler = (
-  data?: ResolverHandlerParams
-) => (
+export type Resolver = (
   parent: ParentNode,
-  args: { [key: string]: any },
-  context: ResolverContext,
-  info: any
-) => Promise<any>;
+  args: { [key: string]: unknown },
+  context: ResolverContext
+) => Promise<unknown>;
+
+export type ResolverHandler = (data?: ResolverHandlerParams) => Resolver;
 
 export type CreateResolver = (data?: ResolverHandlerParams) => {
   Query?: {
-    [resolver: string]: (...args: any) => Promise<ResolverHandler>;
+    [resolver: string]: Resolver;
   };
   Mutation?: {
-    [resolver: string]: (...args: any) => Promise<ResolverHandler>;
+    [resolver: string]: Resolver;
   };
 };

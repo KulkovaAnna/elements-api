@@ -7,8 +7,8 @@ type Args = {
   };
 };
 
-const getChapters: ResolverHandler = function ({ database }) {
-  return async function (_parent, { input }: Args) {
+const getChapters: ResolverHandler = ({ database }) => {
+  return async (_parent, { input }: Args) => {
     const { from = 0, limit } = input ?? {};
     const [{ count }] = await database('chapters').count('id');
     const result = {
