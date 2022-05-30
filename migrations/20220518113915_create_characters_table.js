@@ -1,17 +1,3 @@
-/*
-  public id!: number;
-  public name?: string;
-  public description?: string;
-  public story?: string;
-  public hero_image?: string;
-  public images?: string[];
-  public full_name?: string;
-  public race?: string;
-  public sex?: string;
-  public birth_date?: number;
-  public death_date?: number;
-*/
-
 exports.up = async function up(knex) {
   return knex.schema.createTableIfNotExists('characters', (table) => {
     table.increments('id');
@@ -21,7 +7,7 @@ exports.up = async function up(knex) {
     table.string('hero_image').nullable();
     table.string('full_name').nullable();
     table
-      .enu('race', ['elf', 'human', 'goblin', 'siren', 'verwolf'], {
+      .enu('race', ['elf', 'human', 'goblin', 'siren', 'werevolf'], {
         useNative: true,
         existingType: false,
         enumName: 'race_enum',

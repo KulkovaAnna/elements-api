@@ -7,10 +7,17 @@ type Args = {
 
 const getCharacterById: ResolverHandler = ({ database }) => {
   return async function (_, { id }: Args) {
-    const [result]: Character[] = await database('characters')
-      .select()
+    const [result] = await database('characters')
+      .select<Character[]>()
       .where({ id });
-    return result;
+    const family = await database('relationships')
+      .join('characters', 'characters.id', 'relationships.relative_id')
+      .select('relationships.id', 'relative_id', 'name', 'related_as')
+      .where({ char_id: id });
+    if (!result) {
+      return null;
+    }
+    return { ...result, family };
   };
 };
 

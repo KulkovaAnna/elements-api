@@ -16,6 +16,36 @@ export default gql`
     other
   }
 
+  enum Relationship {
+    sister
+    brother
+    mother
+    father
+    wife
+    husband
+    son
+    daughter
+    grandmother
+    grandfather
+    grandson
+    granddaughter
+    uncle
+    aunt
+    nephew
+    niece
+    stepmother
+    stepfather
+    stepson
+    stepdaughter
+  }
+
+  type Family {
+    id: Int!
+    name: String
+    related_as: Relationship
+    relative_id: Int!
+  }
+
   type Character {
     id: Int!
     name: String
@@ -27,6 +57,7 @@ export default gql`
     sex: Sex
     birth_date: Int
     death_date: Int
+    family: [Family]
   }
 
   type Query {
