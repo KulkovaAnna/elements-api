@@ -2,7 +2,7 @@ import { CreateResolver } from '../../types/server';
 import getCharacterById from './getCharacterById';
 import getCharacters from './getCharacters';
 
-const charactersResolver: CreateResolver = function (data) {
+const charactersResolver: CreateResolver = (data) => {
   return {
     Query: {
       getCharacters: getCharacters(data),

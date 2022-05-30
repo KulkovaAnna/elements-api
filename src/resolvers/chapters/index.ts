@@ -4,7 +4,7 @@ import getNthChapter from './getNthChapter';
 import getChapters from './getChapters';
 import updateChapter from './updateChapter';
 
-const chaptersResolver: CreateResolver = function (data) {
+const chaptersResolver: CreateResolver = (data) => {
   return {
     Query: {
       getNthChapter: getNthChapter(data),
