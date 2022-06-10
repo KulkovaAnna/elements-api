@@ -39,6 +39,17 @@ export default gql`
     stepdaughter
   }
 
+  enum ImageType {
+    hero
+    thumbnail
+  }
+
+  enum Role {
+    protagonist
+    main
+    minor
+  }
+
   type Family {
     id: Int!
     name: String
@@ -52,12 +63,14 @@ export default gql`
     description: String
     story: String
     hero_image: String
+    thumbnail_image: String
     full_name: String
     race: Race
     sex: Sex
     birth_date: Int
     death_date: Int
     family: [Family]
+    role: Role
   }
 
   type Query {
@@ -66,6 +79,6 @@ export default gql`
   }
 
   type Mutation {
-    uploadHeroImage(id: Int!, file: Upload!): Character
+    uploadImage(id: Int!, file: Upload!, type: ImageType!): Character
   }
 `;

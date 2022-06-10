@@ -1,9 +1,9 @@
 import { CreateResolver } from '../../types/server';
-import uploadHeroImage from './uploadHeroImage';
+import uploadImage from './uploadImage';
 const charactersResolver: CreateResolver = (data) => {
   return {
     Mutation: {
-      uploadHeroImage: uploadHeroImage(data),
+      uploadImage: uploadImage(data),
     },
   };
 };
