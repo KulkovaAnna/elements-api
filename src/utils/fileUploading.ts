@@ -7,8 +7,11 @@ export function saveFile(
   path: string,
   callback: () => void = null
 ) {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path, { recursive: true });
+  }
   const stream = file.createReadStream();
-  const out = fs.createWriteStream(path);
+  const out = fs.createWriteStream(`${path}/image.png`);
   stream.pipe(out);
   finished(out).then(() => callback?.());
 }

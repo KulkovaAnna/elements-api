@@ -3,7 +3,8 @@
   "extends": ["tslint:recommended"],
   "jsRules": {},
   "rules": {
-    "no-console": [true, "log", "error"]
+    "no-console": [true, "log", "error"],
+    "max-classes-per-file": [false]
   },
   "rulesDirectory": []
 }
