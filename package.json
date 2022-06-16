@@ -2,10 +2,14 @@
   "name": "elements-api",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "17.x"
+  },
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node dist/src/app.js",
     "dev": "NODE_ENV=development nodemon ./app.ts",
     "build": "tsc -p .",
+    "postinstall": "yarn build",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix 'src/**'",
     "db:migration:new": "knex migrate:make migration_name",
     "db:migrate": "knex migrate:latest",

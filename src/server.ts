@@ -37,7 +37,7 @@ class Server {
     });
     this.app.listen({ port }, () => {
       console.debug(
-        `🚀 Server ready at http://localhost:5000${server.graphqlPath}`
+        `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
       );
     });
   };

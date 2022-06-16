@@ -1,16 +1,10 @@
 // import { Sequelize } from 'sequelize';
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USER } from '../config';
+import { DATABASE_URL } from '../config';
 import createClient from 'knex';
 
 const knex = createClient({
   client: 'pg',
-  connection: {
-    host: DB_HOST,
-    port: DB_PORT,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_NAME,
-  },
+  connection: DATABASE_URL,
   migrations: {
     tableName: 'migrations',
   },
