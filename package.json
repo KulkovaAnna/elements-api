@@ -6,14 +6,18 @@
     "node": "17.x"
   },
   "scripts": {
-    "start": "node dist/src/app.js",
+    "start": "./node_modules/.bin/knex migrate:latest && node dist/src/app.js",
     "dev": "NODE_ENV=development nodemon ./app.ts",
     "build": "tsc -p .",
     "postinstall": "yarn build",
     "lint": "tslint -c tslint.json -p tsconfig.json --fix 'src/**'",
-    "db:migration:new": "knex migrate:make migration_name",
-    "db:migrate": "knex migrate:latest",
-    "db:rollback": "knex migrate:rollback"
+    "db:migration:new": "./node_modules/.bin/knex migrate:make migration_name",
+    "db:migrate": "./node_modules/.bin/knex migrate:latest",
+    "db:rollback": "./node_modules/.bin/knex migrate:rollback",
+    "db:create": "createdb -O admin elements && psql postgres -c 'ALTER ROLE admin SUPERUSER;'",
+    "db:drop": "dropdb elements",
+    "db:reset": "yarn db:rollback && yarn db:migrate",
+    "db:nuke": "(yarn db:drop || true) && yarn db:create && yarn db:migrate"
   },
   "dependencies": {
     "@types/fs-extra": "^9.0.13",
