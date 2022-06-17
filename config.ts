@@ -3,7 +3,7 @@ dotenv.config({
   path: './.env',
 });
 
-export const PORT = Number(process.env.API_PORT);
+export const PORT = Number(process.env.PORT);
 export const DB_HOST = String(process.env.DB_HOST);
 export const DB_PORT = Number(process.env.DB_PORT);
 export const DB_NAME = String(process.env.DB_NAME);

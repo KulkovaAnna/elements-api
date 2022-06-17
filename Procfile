@@ -1,1 +1,2 @@
-web: node dist/src/app.js
+release: yarn db:migrate
+web: yarn start
