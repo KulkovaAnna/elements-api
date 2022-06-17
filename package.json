@@ -17,7 +17,9 @@
     "db:create": "createdb -O admin elements && psql postgres -c 'ALTER ROLE admin SUPERUSER;'",
     "db:drop": "dropdb elements",
     "db:reset": "yarn db:rollback && yarn db:migrate",
-    "db:nuke": "(yarn db:drop || true) && yarn db:create && yarn db:migrate"
+    "db:nuke": "(yarn db:drop || true) && yarn db:create && yarn db:migrate",
+    "heroku:console": "heroku run bash",
+    "heroku:db": "heroku pg:psql"
   },
   "dependencies": {
     "@types/fs-extra": "^9.0.13",
