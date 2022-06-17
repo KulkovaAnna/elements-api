@@ -5,6 +5,7 @@ import getResolvers from './resolvers';
 import schema from './schemas';
 import getPayload from './utils/getPayload';
 import database from './database';
+import { HOST } from '../config';
 const corsOptions = {
   origin: '*',
 };
@@ -37,7 +38,7 @@ class Server {
     });
     this.app.listen({ port }, () => {
       console.debug(
-        `🚀 Server ready at http://localhost:${port}${server.graphqlPath}`
+        `🚀 Server ready at ${HOST}:${port}${server.graphqlPath}`
       );
     });
   };
