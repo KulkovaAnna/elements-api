@@ -13,5 +13,5 @@ exports.down = function (knex) {
     .alterTable('characters', (table) => {
       table.dropColumn('role');
     })
-    .raw(`drop type sex_enum`);
+    .raw(`drop type char_role_enum`);
 };

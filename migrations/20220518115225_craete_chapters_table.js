@@ -8,7 +8,7 @@
 exports.up = function (knex) {
   return knex.schema.createTableIfNotExists('chapters', (table) => {
     table.increments('id');
-    table.integer('order').notNullable();
+    table.integer('order').notNullable().unique();
     table.string('title', 255).nullable();
     table.text('content').nullable();
   });

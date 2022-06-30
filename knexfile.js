@@ -6,7 +6,7 @@
 module.exports = {
   development: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: 'postgres://postgres:1111@localhost:5432/elements',
     migrations: {
       tableName: 'migrations',
     },
