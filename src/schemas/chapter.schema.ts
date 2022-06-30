@@ -37,13 +37,20 @@ export default gql`
     prev: Int
     total: Int
   }
+
+  type StatusResponse {
+    status: String
+  }
+
   type Query {
     getNthChapter(order: Int!): GetNthChapterResult
     getChapters(input: GetChaptersInput): GetChaptersResult
+    getChapterById(id: Int!): GetNthChapterResult 
   }
 
   type Mutation {
     addChapter(input: AddChapterInput): Chapter
     updateChapter(id: Int!, input: UpdateChapterInput): Chapter
+    deleteChapter(id: Int!): StatusResponse
   }
 `;

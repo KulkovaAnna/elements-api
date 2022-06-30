@@ -16,12 +16,18 @@ const getChapters: ResolverHandler = ({ database }) => {
       chapters: [],
       nextOrder: 1,
     };
-    result.chapters = await database('chapters')
+    if (limit) {
+      result.chapters = await database('chapters')
       .select('*')
       .offset(from)
       .limit(limit)
       .orderBy('order');
-
+    } else {
+      result.chapters = await database('chapters')
+      .select('*')
+      .offset(from)
+      .orderBy('order');
+    }
     if (limit === undefined || limit >= count) {
       result.nextOrder = null;
     } else {
