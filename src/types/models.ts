@@ -49,17 +49,32 @@ export interface Chapter {
   content: string;
 }
 
+export enum Role {
+  protagonist = 'protagonist',
+  main = 'main',
+  minor = 'minor',
+}
+
+export type Family = {
+  id: number;
+  relative_id: number;
+  char_id: number;
+  related_as?: RelationType;
+};
+
 export interface Character {
   id: number;
   name?: string;
   description?: string;
   story?: string;
   hero_image?: string;
+  thumbnail_image?: string;
   full_name?: string;
   race?: Race;
   sex?: Sex;
   birth_date?: number;
   death_date?: number;
+  role?: Role;
 }
 
 export interface Relationship {

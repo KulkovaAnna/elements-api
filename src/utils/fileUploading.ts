@@ -1,6 +1,6 @@
-import fs from 'fs-extra';
-import { FileUpload } from 'graphql-upload';
-import { finished } from 'stream/promises';
+import fs from "fs-extra";
+import { FileUpload } from "graphql-upload";
+import { finished } from "stream/promises";
 
 export function saveFile(
   file: FileUpload,
@@ -14,4 +14,10 @@ export function saveFile(
   const out = fs.createWriteStream(`${path}/image.png`);
   stream.pipe(out);
   finished(out).then(() => callback?.());
+}
+
+export function deleteFile(path: string) {
+  if (fs.existsSync(path)) {
+    fs.remove(path);
+  }
 }

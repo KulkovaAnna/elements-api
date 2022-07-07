@@ -23,7 +23,7 @@ const addChapter: ResolverHandler = ({ database }) => {
       const result: Chapter[] = await database('chapters').insert(input, '*');
       return result[0];
     } catch(err) {
-      if(err.routine === '_bt_check_unique') {  
+      if(err.routine === '_bt_check_unique') {
         throw new BadRequestError('Такая глава уже существует')
       }
       else {

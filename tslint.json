@@ -4,7 +4,8 @@
   "jsRules": {},
   "rules": {
     "no-console": [true, "log", "error"],
-    "max-classes-per-file": [false]
+    "max-classes-per-file": [false],
+    "forin": false
   },
   "rulesDirectory": []
 }
