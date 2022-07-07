@@ -1,6 +1,10 @@
-import { gql } from 'apollo-server-core';
+import { gql } from "apollo-server-core";
 
 export default gql`
+  enum Status {
+    OK
+  }
+
   type Chapter {
     id: Int!
     title: String
@@ -39,13 +43,13 @@ export default gql`
   }
 
   type StatusResponse {
-    status: String
+    status: Status
   }
 
   type Query {
     getNthChapter(order: Int!): GetNthChapterResult
     getChapters(input: GetChaptersInput): GetChaptersResult
-    getChapterById(id: Int!): GetNthChapterResult 
+    getChapterById(id: Int!): GetNthChapterResult
   }
 
   type Mutation {
